@@ -13,6 +13,7 @@ import re
 import shutil
 from datetime import date
 from html import escape
+from urllib.parse import quote
 from pathlib import Path
 
 # --------------------------------------------------------------------------------------
@@ -29,6 +30,7 @@ CONFIG = {
     # Stripe Payment Link (or similar) for the IDR 8,000,000 listing fee (set the link to charge IDR). While it still contains
     # "YOUR_", submitters see a thank-you message and you email them an invoice instead.
     "payment_link": "https://buy.stripe.com/YOUR_PAYMENT_LINK",
+    "whatsapp": "61488898835",                         # WhatsApp number, international format, digits only
     "year": 2026,
     "next_year": 2027,
 }
@@ -40,6 +42,9 @@ TODAY = date.today().isoformat()
 Y, NY = CONFIG["year"], CONFIG["next_year"]
 URL = CONFIG["site_url"]
 FEE = f"IDR {CONFIG['listing_price']:,}"
+WA = f"https://wa.me/{CONFIG['whatsapp']}"
+WA_SVG = '<svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.2.6 4.4 1.7 6.3L3.2 28.8l7.1-1.9c1.8 1 3.8 1.5 5.8 1.5 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6C5.2 9.8 10 5.1 16 5.1s10.8 4.8 10.8 10.6S21.9 26.2 16 26.2zm5.9-7.9c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1.1-1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>'
+MAIL_SVG = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 5h18v14H3zM3 6l9 7 9-7"/></svg>'
 
 CATEGORY_LABELS = {
     "party": "Parties",
@@ -210,6 +215,7 @@ def layout(path, title, description, body, schema=None, og_type="website", activ
 </div>
 <p class="fine">NYE in Bali is an independent guide and is not affiliated with any venue, the Bali Provincial Government or the Indonesian tourism authorities. Prices are shown in IDR as published by venues, and "++" means tax and service (usually 21%) are added. Details can change, so always confirm with the venue before booking. Bali is a living Hindu culture: please dress and behave respectfully around temples and ceremonies. © {Y} {CONFIG['site_name']}.</p>
 </div></footer>
+{contact_widgets()}
 <script src="/main.js" defer></script>
 </body>
 </html>"""
@@ -218,6 +224,40 @@ def layout(path, title, description, body, schema=None, og_type="website", activ
 # --------------------------------------------------------------------------------------
 # Components
 # --------------------------------------------------------------------------------------
+def contact_widgets():
+    """Floating WhatsApp + email buttons, the email contact form and the buy chooser (on every page)."""
+    wa_hi = WA + "?text=" + quote(f"Hi! I'm getting in touch from {CONFIG['site_name']}.")
+    wa_buy = WA + "?text=" + quote(f"Hi! I'd like to list my New Year's Eve event on {CONFIG['site_name']} ({FEE}).")
+    return f"""<div class="float-contact">
+<a class="fc-btn fc-wa" href="{wa_hi}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">{WA_SVG}</a>
+<button class="fc-btn fc-mail" type="button" data-open="contact-modal" aria-label="Email us">{MAIL_SVG}</button>
+</div>
+<dialog class="modal" id="contact-modal" aria-labelledby="cm-title">
+<button class="modal-x" type="button" data-close aria-label="Close">×</button>
+<h3 id="cm-title">Email us</h3>
+<p class="muted">Send us a message and we'll reply by email, usually within one business day.</p>
+<form class="contact" data-endpoint="{CONFIG['form_endpoint']}" data-email="{CONFIG['contact_email']}">
+<div><label for="c-name">Name *</label><input id="c-name" name="name" required autocomplete="name"></div>
+<div><label for="c-email">Email *</label><input id="c-email" name="email" type="email" required autocomplete="email"></div>
+<div><label for="c-msg">Message *</label><textarea id="c-msg" name="message" required></textarea></div>
+<input type="hidden" name="_subject" value="New message from {CONFIG['site_name']}"><input type="hidden" name="_template" value="table">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+<button class="btn btn-primary" type="submit">Send message</button>
+<p class="form-status muted" aria-live="polite"></p>
+</form>
+</dialog>
+<dialog class="modal" id="buy-modal" aria-labelledby="bm-title">
+<button class="modal-x" type="button" data-close aria-label="Close">×</button>
+<h3 id="bm-title">List your event: {FEE}</h3>
+<p class="muted">How would you like to get started?</p>
+<div class="choice">
+<a class="btn btn-wa" href="{wa_buy}" target="_blank" rel="noopener">{WA_SVG} WhatsApp us</a>
+<a class="btn btn-primary" href="/list-your-event/#form" data-buy-email>{MAIL_SVG} Email: fill in the form</a>
+</div>
+<p class="muted fine-print">WhatsApp: +{CONFIG['whatsapp'][:2]} {CONFIG['whatsapp'][2:5]} {CONFIG['whatsapp'][5:8]} {CONFIG['whatsapp'][8:]} · Email: {CONFIG['contact_email']}</p>
+</dialog>"""
+
+
 def card(e, i):
     cats = " ".join(e["categories"])
     search = " ".join([e["name"], e["venue"], e["suburb"], e["area"], " ".join(e["categories"]), e["blurb"]]).lower()
@@ -291,7 +331,7 @@ def season_section(p):
 <div class="grid">{cards}</div>
 <div class="band" style="margin-top:40px">
 <div><h2>One listing. The whole season.</h2><p>At typical Bali NYE prices of IDR 1.5–5 million a head, a handful of bookings covers your {FEE} listing. Everything after that is profit, with zero commission.</p></div>
-<a class="btn" href="#form">Claim your spot →</a></div>
+<a class="btn" href="#form" data-buy>Claim your spot →</a></div>
 </div></section>"""
 
 
@@ -541,7 +581,7 @@ def page_category(c):
 <section style="padding-bottom:0"><div class="wrap two">
 <div class="panel"><h2 style="font-size:1.5rem">Booking tips</h2><ul class="ticks">{tips}</ul></div>
 <div><h2 style="font-size:1.5rem">{len(events)} options, compared</h2><p class="muted">Every listing shows the published IDR price, what's included and whether there are fireworks. Where 2026 pricing isn't out yet we show last year's price or TBA, so always confirm with the venue.</p>
-<a class="btn btn-primary" href="/list-your-event/">Add your venue: {FEE}</a></div>
+<a class="btn btn-primary" href="/list-your-event/#form" data-buy>Add your venue: {FEE}</a></div>
 </div></section>
 {directory(events, c['h1'], 'Filter and sort to find your night.')}
 {list_band()}"""
@@ -725,7 +765,7 @@ def page_list():
 <p class="lead">October, November and December are when travellers plan New Year's Eve in Bali. Put your NYE {Y} event in front of people typing "New Year's Eve Bali", "Bali NYE parties", "NYE dinner Bali" and "Canggu New Year's Eve" while they're choosing where to spend the night.</p>
 {countdown(mini=True)}
 <p class="cd-note" style="margin-top:0">left to sell. The NYE search season is on now.</p>
-<div class="cta-row"><a class="btn btn-primary" href="#form">List my event: {FEE}</a><a class="btn btn-ghost" href="#season">Why now?</a></div></div></section>
+<div class="cta-row"><a class="btn btn-primary" href="#form" data-buy>List my event: {FEE}</a><a class="btn btn-ghost" href="#season">Why now?</a></div></div></section>
 {season_section(p)}
 <section><div class="wrap two" style="align-items:start">
 <div>
@@ -751,12 +791,12 @@ def page_list():
 <li>Unlimited edits until 31 Dec {Y}</li>
 <li>Live within 1 business day</li>
 </ul>
-<a class="btn btn-primary" href="#form" style="width:100%;justify-content:center">List my event →</a>
+<a class="btn btn-primary" href="#form" data-buy style="width:100%;justify-content:center">List my event →</a>
 </div>
 </div></section>
 <section class="alt" id="form"><div class="wrap" style="max-width:860px">
 <div class="section-head"><h2>Your event details</h2><p>{form_sub}</p></div>
-<form class="listing panel" data-endpoint="{CONFIG['form_endpoint']}" data-payment="{CONFIG['payment_link']}" data-email="{CONFIG['contact_email']}">
+<form class="listing panel" data-endpoint="{CONFIG['form_endpoint']}" data-payment="{CONFIG['payment_link']}" data-email="{CONFIG['contact_email']}" data-wa="{WA}">
 <div><label for="f-name">Event name *</label><input id="f-name" name="event_name" required></div>
 <div><label for="f-venue">Venue *</label><input id="f-venue" name="venue" required></div>
 <div><label for="f-suburb">Area *</label><input id="f-suburb" name="suburb" required placeholder="e.g. Canggu, Uluwatu"></div>
@@ -773,7 +813,7 @@ def page_list():
 <div><label for="f-abn">Business name</label><input id="f-abn" name="business"></div>
 <input type="hidden" name="_subject" value="New NYE in Bali listing request ({FEE})">
 <input type="hidden" name="_template" value="table"><input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-<div class="full"><button class="btn btn-primary" type="submit">{submit_label}</button>
+<div class="full form-actions"><button class="btn btn-primary" type="submit">{submit_label}</button><button class="btn btn-wa" type="button" data-wa-send>{WA_SVG} Send via WhatsApp instead</button>
 <p class="form-status muted" aria-live="polite" style="margin:12px 0 0"></p></div>
 </form>
 </div></section>

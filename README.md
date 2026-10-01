@@ -34,6 +34,7 @@ Venues publish prices in rupiah, so every event price on the site is shown in ID
 | `site_url` | `https://nyeinbali.com` (used for canonical URLs, the sitemap and OG tags) |
 | `contact_email` | `aj@metatapdigital.com`: the inbox for listing requests |
 | `form_endpoint` | `https://formsubmit.co/ajax/aj@metatapdigital.com`: emails each listing request to that inbox |
+| `whatsapp` | WhatsApp number (digits only, with country code) used by the floating WhatsApp button and the "List your event" chooser |
 | `payment_link` | A Stripe Payment Link for IDR 8,000,000. After the form saves, the buyer is redirected here with their email prefilled |
 
 The first submission triggers a one-time FormSubmit activation email to `aj@metatapdigital.com`. Click the link in it, and every request after that arrives as a formatted email. Until `payment_link` is set, submitters see a thank-you message and you send them an invoice.

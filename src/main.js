@@ -161,4 +161,55 @@
         .catch(function () { status.textContent = "Something went wrong. Please email us at " + form.dataset.email; submitBtn.disabled = false; });
     });
   }
+  // ---------- Contact: floating email form, buy chooser (WhatsApp or email) ----------
+  var openModal = function (id) {
+    var m = document.getElementById(id);
+    if (!m) return false;
+    if (m.showModal) m.showModal(); else m.setAttribute("open", "");
+    return true;
+  };
+  var closeModal = function (m) { if (m.close) m.close(); else m.removeAttribute("open"); };
+  document.querySelectorAll("[data-open]").forEach(function (b) {
+    b.addEventListener("click", function () { openModal(b.dataset.open); });
+  });
+  document.querySelectorAll("dialog.modal").forEach(function (m) {
+    m.addEventListener("click", function (e) { if (e.target === m || e.target.closest("[data-close]")) closeModal(m); });
+  });
+  document.querySelectorAll("[data-buy]").forEach(function (b) {
+    b.addEventListener("click", function (e) { if (openModal("buy-modal")) e.preventDefault(); });
+  });
+  var buyEmail = document.querySelector("[data-buy-email]");
+  if (buyEmail) buyEmail.addEventListener("click", function (e) {
+    var target = document.getElementById("form");
+    if (!target) return;
+    e.preventDefault(); closeModal(document.getElementById("buy-modal"));
+    target.scrollIntoView({ behavior: "smooth" });
+    var first = target.querySelector("input"); if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 500);
+  });
+
+  var contact = document.querySelector("form.contact");
+  if (contact) contact.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var status = contact.querySelector(".form-status"), btn = contact.querySelector("button[type=submit]");
+    btn.disabled = true; status.textContent = "Sending…";
+    fetch(contact.dataset.endpoint, { method: "POST", body: new FormData(contact), headers: { Accept: "application/json" } })
+      .then(function (r) {
+        if (!r.ok) throw new Error();
+        contact.reset(); status.textContent = "Thanks! Your message has been sent. We'll reply by email soon.";
+      })
+      .catch(function () { status.textContent = "Something went wrong. Please email us at " + contact.dataset.email; })
+      .then(function () { btn.disabled = false; });
+  });
+
+  var waSend = document.querySelector("[data-wa-send]");
+  if (waSend && form) waSend.addEventListener("click", function () {
+    if (!form.reportValidity()) return;
+    var lines = ["Hi! I'd like to list my New Year's Eve event on NYE in Bali.", ""];
+    form.querySelectorAll("input:not([type=hidden]):not([name=_honey]),select,textarea").forEach(function (el) {
+      if (!el.value) return;
+      var label = form.querySelector('label[for="' + el.id + '"]');
+      lines.push((label ? label.textContent.replace(/\s*\*$/, "") : el.name) + ": " + el.value);
+    });
+    window.open(form.dataset.wa + "?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
+  });
 })();
