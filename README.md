@@ -23,9 +23,9 @@ cd docs && python3 -m http.server    # preview at http://localhost:8000
 - One SEO page per event, with `Event` schema
 - `sitemap.xml`, `robots.txt`, `404.html` and the OG image
 
-## Prices: IDR and AUD
+## Prices: IDR
 
-Venues publish prices in rupiah, so `price_text` shows the IDR price as published (with "++" where tax and service are extra). `price_from` is a **rounded AUD estimate** (about IDR 12,500 = $1 AUD, set in `CONFIG["idr_per_aud"]`) so the budget filter and price sorting work. When you add a listing, convert the lowest published IDR price to AUD for `price_from`, use `0` for free entry and `null` for TBA. Where 2026 pricing isn't published yet, mark it "(2025 price, 2026 TBC)" or "TBA" in `price_text`.
+Venues publish prices in rupiah, so every event price on the site is shown in IDR. `price_text` shows the IDR price as published (with "++" where tax and service are extra). `price_from` is the **lowest published IDR price per person** (e.g. `1500000`), used for the "from" price, the budget filter and price sorting. Use `0` for free entry and `null` for TBA. Where 2026 pricing isn't published yet, mark it "(2025 price, 2026 TBC)" or "TBA" in `price_text`.
 
 ## Before going live: edit `CONFIG` in `build.py`
 

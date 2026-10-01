@@ -5,8 +5,8 @@ Edit data/events.json (and the CONFIG block below), then run:
     python3 build.py
 The complete site is written to ./docs, which Vercel serves as-is (see vercel.json).
 
-Prices: each listing's `price_text` shows the venue's published price in IDR. `price_from` is an
-approximate AUD figure (about IDR 12,500 = $1 AUD) so the budget filter and sorting work.
+Prices: each listing's `price_text` shows the venue's published price in IDR. `price_from` is the
+lowest published IDR price per person, used for the "from" price, budget filter and sorting.
 """
 import json
 import re
@@ -31,7 +31,6 @@ CONFIG = {
     "payment_link": "https://buy.stripe.com/YOUR_PAYMENT_LINK",
     "year": 2026,
     "next_year": 2027,
-    "idr_per_aud": 12500,                              # rough rate used for the AUD estimates
 }
 
 ROOT = Path(__file__).parent
@@ -40,7 +39,6 @@ EVENTS = json.loads((ROOT / "data" / "events.json").read_text())
 TODAY = date.today().isoformat()
 Y, NY = CONFIG["year"], CONFIG["next_year"]
 URL = CONFIG["site_url"]
-RATE = f"{CONFIG['idr_per_aud']:,}"
 
 CATEGORY_LABELS = {
     "party": "Parties",
@@ -51,7 +49,7 @@ CATEGORY_LABELS = {
     "clifftop": "Clifftop",
     "rooftop": "Rooftops",
     "family": "Family-friendly",
-    "budget": "Under $150 AUD",
+    "budget": "Up to IDR 1.5 million",
     "free": "Free entry",
 }
 AREAS = sorted({e["area"] for e in EVENTS})
@@ -72,8 +70,8 @@ def j(obj):
 
 
 def money(n):
-    """Approximate AUD price for display (the IDR price is in price_text)."""
-    return "Free" if n == 0 else f"${n:,.0f}"
+    """IDR price for display."""
+    return "Free" if n == 0 else f"IDR {n:,.0f}"
 
 
 def idr_from(text):
@@ -209,7 +207,7 @@ def layout(path, title, description, body, schema=None, og_type="website", activ
 <li><a href="/list-your-event/">List your event: ${CONFIG['listing_price']} AUD</a></li>
 <li><a href="mailto:{CONFIG['contact_email']}">{CONFIG['contact_email']}</a></li></ul></div>
 </div>
-<p class="fine">NYE in Bali is an independent guide and is not affiliated with any venue, the Bali Provincial Government or the Indonesian tourism authorities. Prices are shown in IDR as published by venues; AUD figures are approximate (about IDR {RATE} = $1 AUD) and "++" means tax and service (usually 21%) are added. Details can change, so always confirm with the venue before booking. Bali is a living Hindu culture: please dress and behave respectfully around temples and ceremonies. © {Y} {CONFIG['site_name']}.</p>
+<p class="fine">NYE in Bali is an independent guide and is not affiliated with any venue, the Bali Provincial Government or the Indonesian tourism authorities. Prices are shown in IDR as published by venues, and "++" means tax and service (usually 21%) are added. Details can change, so always confirm with the venue before booking. Bali is a living Hindu culture: please dress and behave respectfully around temples and ceremonies. © {Y} {CONFIG['site_name']}.</p>
 </div></footer>
 <script src="/main.js" defer></script>
 </body>
@@ -226,7 +224,7 @@ def card(e, i):
     price = e["price_from"]
     price_html = (
         "Free<small>entry, see details</small>" if price == 0
-        else f"{money(price)}<small>from, approx AUD pp</small>" if price
+        else f"{money(price)}<small>from, per person</small>" if price
         else "TBA<small>see venue</small>"
     )
     return f"""<article class="card{' featured' if e.get('featured') else ''}" data-cats="{cats}" data-area="{escape(e['area'])}" data-price="{price if price is not None else ''}" data-featured="{1 if e.get('featured') else 0}" data-order="{i}" data-search="{escape(search)}">
@@ -291,7 +289,7 @@ def season_section(p):
 <p class="muted" style="text-align:center;font-size:.8rem;margin:-6px 0 30px">Shows the typical seasonal pattern of search interest, not exact volumes.</p>
 <div class="grid">{cards}</div>
 <div class="band" style="margin-top:40px">
-<div><h2>One listing. The whole season.</h2><p>At typical Bali NYE prices of IDR 1.5–5 million (about $120–$400 AUD) a head, a handful of bookings covers your ${p} listing. Everything after that is profit, with zero commission.</p></div>
+<div><h2>One listing. The whole season.</h2><p>At typical Bali NYE prices of IDR 1.5–5 million a head, a handful of bookings covers your ${p} listing. Everything after that is profit, with zero commission.</p></div>
 <a class="btn" href="#form">Claim your spot →</a></div>
 </div></section>"""
 
@@ -336,7 +334,7 @@ FAQ = [
     ("What time is midnight in Bali compared to Australia?",
      f"Bali is on WITA (UTC+8) with no daylight saving. Midnight in Bali on 31 December {Y} is 3am on 1 January {NY} in Sydney, Melbourne and Canberra (AEDT), 2am in Brisbane, 2:30am in Adelaide and the same time as Perth."),
     ("How much does New Year's Eve in Bali cost?",
-     f"A beach-club or clifftop party ticket runs from about IDR 200,000 to IDR 5,000,000 (about $15–$400 AUD). Resort gala dinners are typically IDR 1.5–5 million per person, and top fine dining reaches IDR 8–10 million (about $640–$800 AUD). Prices marked \"++\" add about 21% tax and service. AUD figures on this site use roughly IDR {RATE} = $1 AUD."),
+     f"A beach-club or clifftop party ticket runs from about IDR 200,000 to IDR 5,000,000. Resort gala dinners are typically IDR 1.5–5 million per person, and top fine dining reaches IDR 8–10 million. Prices marked \"++\" add about 21% tax and service."),
     ("How bad is the traffic in Bali on New Year's Eve?",
      "Very bad. Canggu, Berawa, Seminyak, Kuta, Legian and the roads to Uluwatu and Jimbaran can gridlock from late afternoon until well after midnight, and a 20-minute trip can take two hours. Pick one area, stay within walking distance of your event and pre-book a driver for any trip you can't walk."),
     ("Can I get a Grab or Gojek on New Year's Eve in Bali?",
@@ -423,7 +421,7 @@ def vantage_table(rows=None):
 # --------------------------------------------------------------------------------------
 # Pages
 # --------------------------------------------------------------------------------------
-DIR_SUB = 'Filter by type, area or budget. Prices are shown in IDR as published, with approximate AUD. "++" means tax and service (about 21%) are added.'
+DIR_SUB = 'Filter by type, area or budget. Prices are shown in IDR as published. "++" means tax and service (about 21%) are added.'
 
 
 def page_home():
@@ -445,7 +443,7 @@ def page_home():
 <div class="wrap"><div class="facts">
 <div class="fact"><b>Midnight</b><span>WITA (UTC+8), which is 3am in Sydney &amp; Melbourne</span></div>
 <div class="fact"><b>Coast-wide</b><span>fireworks from beaches, clubs and resorts, with no single official show</span></div>
-<div class="fact"><b>~IDR {RATE}</b><span>to $1 AUD, the rate our AUD estimates use</span></div>
+<div class="fact"><b>IDR</b><span>all prices in rupiah as published; "++" adds about 21% tax &amp; service</span></div>
 <div class="fact"><b>{n}+</b><span>bookable parties, beach clubs, dinners &amp; galas</span></div>
 </div></div>
 
@@ -497,7 +495,7 @@ CATEGORY_PAGES = [
         "filter": lambda e: "party" in e["categories"],
         "title": f"Bali NYE Parties {Y}: Best New Year's Eve Parties in Bali",
         "h1": f"The best New Year's Eve parties in Bali {Y}",
-        "desc": f"Bali's best New Year's Eve parties for {Y}: FINNS NYE Festival, Atlas with Quavo, Savaya with Carl Cox, plus Seminyak, Canggu and Uluwatu parties with prices in IDR and AUD.",
+        "desc": f"Bali's best New Year's Eve parties for {Y}: FINNS NYE Festival, Atlas with Quavo, Savaya with Carl Cox, plus Seminyak, Canggu and Uluwatu parties with prices in IDR.",
         "intro": "From two-day beach festivals in Berawa to sunrise sets on the Uluwatu cliffs, these are the best NYE parties in Bali. Big-name events sell out months ahead, while plenty of bars and clifftop clubs keep entry cheap or free early in the evening.",
         "tips": ["Buy the big tickets (FINNS, Atlas, Savaya) early. Releases go up in price and sell out.", "Check the age rules: Savaya is strictly 21+, FINNS 18+ and Atlas 16+.", "Pick a party near where you're staying. NYE traffic makes hopping between areas almost impossible.", "Drink only sealed, branded drinks at reputable venues because of methanol risk."],
     },
@@ -515,7 +513,7 @@ CATEGORY_PAGES = [
         "filter": lambda e: "dining" in e["categories"] or "fine-dining" in e["categories"] or "gala" in e["categories"],
         "title": f"New Year's Eve Dinner Bali {Y}: Resort Galas & NYE Set Menus",
         "h1": f"New Year's Eve dinners in Bali {Y}",
-        "desc": f"The best New Year's Eve dinners in Bali for {Y}: resort galas in Nusa Dua and Jimbaran, clifftop degustations in Uluwatu, beachfront set menus in Seminyak and Ubud dinners, with IDR and AUD prices.",
+        "desc": f"The best New Year's Eve dinners in Bali for {Y}: resort galas in Nusa Dua and Jimbaran, clifftop degustations in Uluwatu, beachfront set menus in Seminyak and Ubud dinners, with IDR prices.",
         "intro": "A resort gala or long NYE dinner is the most comfortable way to see in the new year in Bali: no traffic once you're there, a guaranteed table and, at most beachfront and clifftop resorts, fireworks at midnight. Expect most prices to be quoted \"++\", with about 21% tax and service on top.",
         "tips": ["Book by November. The best tables and early-bird deals go first.", "Check whether the price includes drinks. Free-flow packages are often good value.", "Ask whether the venue has its own fireworks or just views of others.", "Staying at the resort? In-house guests often get priority or better rates."],
     },
@@ -541,7 +539,7 @@ def page_category(c):
 <p class="lead">{c['intro']}</p>{countdown(mini=True)}</div></section>
 <section style="padding-bottom:0"><div class="wrap two">
 <div class="panel"><h2 style="font-size:1.5rem">Booking tips</h2><ul class="ticks">{tips}</ul></div>
-<div><h2 style="font-size:1.5rem">{len(events)} options, compared</h2><p class="muted">Every listing shows the published IDR price, an approximate AUD "from" price, what's included and whether there are fireworks. Where 2026 pricing isn't out yet we show last year's price or TBA, so always confirm with the venue.</p>
+<div><h2 style="font-size:1.5rem">{len(events)} options, compared</h2><p class="muted">Every listing shows the published IDR price, what's included and whether there are fireworks. Where 2026 pricing isn't out yet we show last year's price or TBA, so always confirm with the venue.</p>
 <a class="btn btn-primary" href="/list-your-event/">Add your venue: ${CONFIG['listing_price']} AUD</a></div>
 </div></section>
 {directory(events, c['h1'], 'Filter and sort to find your night.')}
@@ -564,7 +562,7 @@ def page_event(e):
     elif idr:
         offer.update(price=idr, priceCurrency="IDR")
     elif e["price_from"] is not None:
-        offer.update(price=e["price_from"], priceCurrency="AUD")
+        offer.update(price=e["price_from"], priceCurrency="IDR")
     schema = {
         "@context": "https://schema.org",
         "@type": "Event",
@@ -596,12 +594,12 @@ def page_event(e):
 <div class="prose" style="margin-top:30px">
 <h2 style="font-size:1.5rem">About {escape(e['name'])}</h2>
 <p>{escape(e['name'])} is at {escape(e['venue'])} in {escape(e['suburb'])} ({escape(e['area'])}). It's one of the {escape(cats.lower())} options for New Year's Eve {Y} in Bali. Fireworks: <b>{escape(e['fireworks'])}</b>. Age: <b>{escape(e['age'])}</b>.</p>
-<p><b>Price:</b> {escape(e['price_text'])}. "++" means tax and service (usually 21%) are added; AUD figures are approximate.</p>
+<p><b>Price:</b> {escape(e['price_text'])}. "++" means tax and service (usually 21%) are added.</p>
 <p>Planning the rest of your night? Read our <a href="/plan-your-night/">NYE traffic, transport and safety tips</a> or see <a href="/bali-fireworks-new-years-eve/">where to watch the fireworks</a>.</p>
 <p class="notice">Details are based on the venue's published NYE information (or last year's, where marked) and can change. Confirm the price, times and inclusions with {escape(venue_short)} before booking. Are you the venue? <a href="/list-your-event/">Claim and upgrade this listing</a>.</p>
 </div></div>
 <aside class="side panel">
-<div class="price" style="font-size:2rem">{"Free" if e['price_from']==0 else money(e['price_from']) + ' <span style="font-size:1rem">AUD approx</span>' if e['price_from'] else "TBA"}<small>{escape(e['price_text'])}</small></div>
+<div class="price" style="font-size:2rem">{"Free" if e['price_from']==0 else money(e['price_from']) if e['price_from'] else "TBA"}<small>{escape(e['price_text'])}</small></div>
 <dl><dt>Date</dt><dd>Thursday 31 December {Y}</dd><dt>Time</dt><dd>{escape(e['time'])}</dd>
 <dt>Where</dt><dd>{escape(e['venue'])}</dd><dt>Fireworks</dt><dd>🎆 {escape(e['fireworks'])}</dd><dt>Age</dt><dd>{escape(e['age'])}</dd></dl>
 <a class="btn btn-primary" style="width:100%;justify-content:center" href="{e['url']}" target="_blank" rel="noopener sponsored">Book with the venue →</a>
@@ -738,7 +736,7 @@ def page_list():
 <li><b>Zero commission.</b> Guests click straight through to your booking page.</li>
 <li><b>Updates until NYE.</b> Change prices, add releases or mark sold-out tiers whenever you like.</li>
 <li><b>Our name is the search.</b> NYE in Bali is built around the exact phrases travellers type into Google, so every page targets them.</li>
-<li><b>Australian and international travellers.</b> Prices in IDR with AUD estimates, written for the visitors who book Bali NYE.</li>
+<li><b>Australian and international travellers.</b> Prices in IDR as published, written for the visitors who book Bali NYE.</li>
 </ul>
 </div>
 <div class="pricing">

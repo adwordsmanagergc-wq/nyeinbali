@@ -9,8 +9,8 @@
       "party",
       "beach-club"
     ],
-    "price_from": 290,
-    "price_text": "IDR 3,600,000 two-day GA, second release (about $290 AUD); VIP IDR 10,000,000",
+    "price_from": 3600000,
+    "price_text": "IDR 3,600,000 two-day GA, second release; VIP IDR 10,000,000",
     "time": "30–31 Dec; NYE doors 2:00pm – 2:00am (no entry after midnight)",
     "includes": [
       "Two-day pass for 30 and 31 December (single-day tickets not sold)",
@@ -36,8 +36,8 @@
       "beach-club",
       "budget"
     ],
-    "price_from": 120,
-    "price_text": "From IDR 1,500,000 GA, early bird (about $120 AUD); daybeds and sofas extra",
+    "price_from": 1500000,
+    "price_text": "From IDR 1,500,000 GA, early bird; daybeds and sofas extra",
     "time": "Gates 1:00pm, countdown at midnight",
     "includes": [
       "Live performance by Quavo",
@@ -113,8 +113,8 @@
       "beach-club",
       "budget"
     ],
-    "price_from": 80,
-    "price_text": "IDR 1,000,000++ dinner only (about $80 AUD); IDR 1,800,000++ with drinks (2025 price, 2026 TBC)",
+    "price_from": 1000000,
+    "price_text": "IDR 1,000,000++ dinner only; IDR 1,800,000++ with drinks (2025 price, 2026 TBC)",
     "time": "Evening (TBC)",
     "includes": [
       "Baliwood-inspired themed dinner",
@@ -139,8 +139,8 @@
       "family",
       "budget"
     ],
-    "price_from": 35,
-    "price_text": "IDR 455,000++ early booking (about $35 AUD); kids under 12 eat free (2025 price, 2026 TBC)",
+    "price_from": 455000,
+    "price_text": "IDR 455,000++ early booking; kids under 12 eat free (2025 price, 2026 TBC)",
     "time": "6:00pm – 10:00pm, then rooftop countdown",
     "includes": [
       "All-you-can-eat Indonesian and international buffet",
@@ -216,8 +216,8 @@
       "beach-club",
       "budget"
     ],
-    "price_from": 55,
-    "price_text": "Early bird IDR 700,000 incl IDR 300,000 F&B credit (about $55 AUD); door IDR 1,700,000; dinners from IDR 3,800,000++ (2025 prices, 2026 TBC)",
+    "price_from": 700000,
+    "price_text": "Early bird IDR 700,000 incl IDR 300,000 F&B credit; door IDR 1,700,000; dinners from IDR 3,800,000++ (2025 prices, 2026 TBC)",
     "time": "Evening until late",
     "includes": [
       "Headline house DJ (2025: David Penn) plus residents",
@@ -243,8 +243,8 @@
       "dining",
       "gala"
     ],
-    "price_from": 200,
-    "price_text": "IDR 2,500,000++ vegetarian; IDR 3,500,000++ Western set (about $200 AUD to about $280 AUD) (2025 prices, 2026 TBC)",
+    "price_from": 2500000,
+    "price_text": "IDR 2,500,000++ vegetarian; IDR 3,500,000++ Western set (2025 prices, 2026 TBC)",
     "time": "From 7:00pm",
     "includes": [
       "Six-course degustation",
@@ -271,8 +271,8 @@
       "budget",
       "beach-club"
     ],
-    "price_from": 105,
-    "price_text": "IDR 1,300,000++ (about $105 AUD); kids 6–11 half price (2025 price, 2026 TBC)",
+    "price_from": 1300000,
+    "price_text": "IDR 1,300,000++; kids 6–11 half price (2025 price, 2026 TBC)",
     "time": "6:30pm – 11:00pm",
     "includes": [
       "Five-course beachfront dinner at SugarSand, or international buffet at Makase",
@@ -323,8 +323,8 @@
       "family",
       "budget"
     ],
-    "price_from": 120,
-    "price_text": "IDR 1,500,000 (about $120 AUD); 30% off early booking (2025 price, 2026 TBC)",
+    "price_from": 1500000,
+    "price_text": "IDR 1,500,000; 30% off early booking (2025 price, 2026 TBC)",
     "time": "Evening dinner, then countdown",
     "includes": [
       "Pirate-themed Caribbean and Indian dinner",
@@ -350,8 +350,8 @@
       "family",
       "budget"
     ],
-    "price_from": 10,
-    "price_text": "Poolside countdown IDR 100,000 nett incl a drink (about $10 AUD); buffet dinner IDR 2,000,000+ (2025 prices, 2026 TBC)",
+    "price_from": 100000,
+    "price_text": "Poolside countdown IDR 100,000 nett incl a drink; buffet dinner IDR 2,000,000+ (2025 prices, 2026 TBC)",
     "time": "Dinner 7:00pm – 10:00pm; poolside from 8:00pm",
     "includes": [
       "Infinity poolside countdown with live DJ, band and dance performances",
@@ -375,8 +375,8 @@
       "party",
       "clifftop"
     ],
-    "price_from": 400,
-    "price_text": "IDR 5,000,000 GA (about $400 AUD); GA currently listed as sold out, tables by enquiry",
+    "price_from": 5000000,
+    "price_text": "IDR 5,000,000 GA; GA currently listed as sold out, tables by enquiry",
     "time": "Doors 9:00pm until after sunrise",
     "includes": [
       "Carl Cox b2b Nic Fanciulli sunrise set (from 3am)",
@@ -401,8 +401,8 @@
       "beach-club",
       "budget"
     ],
-    "price_from": 120,
-    "price_text": "Beach club pass about IDR 1,500,000 (about $120 AUD); early-bird beds on sale",
+    "price_from": 1500000,
+    "price_text": "Beach club pass about IDR 1,500,000; early-bird beds on sale",
     "time": "From 4:00pm",
     "includes": [
       "White-sand cove reached by inclinator",
@@ -428,8 +428,8 @@
       "beach-club",
       "budget"
     ],
-    "price_from": 15,
-    "price_text": "From IDR 182,000 standing (about $15 AUD); check current release",
+    "price_from": 182000,
+    "price_text": "From IDR 182,000 standing; check current release",
     "time": "3:00pm – 3:00am",
     "includes": [
       "Eight DJ sets plus live sax and percussion",
@@ -481,8 +481,8 @@
       "clifftop",
       "budget"
     ],
-    "price_from": 15,
-    "price_text": "Free guestlist until 8pm; tickets from IDR 200,000 early bird (about $15 AUD) (2025 prices, 2026 TBC)",
+    "price_from": 200000,
+    "price_text": "Free guestlist until 8pm; tickets from IDR 200,000 early bird (2025 prices, 2026 TBC)",
     "time": "From 4:00pm",
     "includes": [
       "Resident and guest DJs",
@@ -557,8 +557,8 @@
       "clifftop",
       "gala"
     ],
-    "price_from": 640,
-    "price_text": "IDR 8,000,000++ (about $640 AUD); Il Ristorante seven-course with wine IDR 10,000,000++ (2025 prices, 2026 TBC)",
+    "price_from": 8000000,
+    "price_text": "IDR 8,000,000++; Il Ristorante seven-course with wine IDR 10,000,000++ (2025 prices, 2026 TBC)",
     "time": "From 6:00pm through the countdown",
     "includes": [
       "Clifftop dinner experience with entertainment",
@@ -582,8 +582,8 @@
       "dining",
       "clifftop"
     ],
-    "price_from": 185,
-    "price_text": "Rocka from IDR 2,300,000++ (about $185 AUD); Watu jazz and champagne from IDR 4,600,000++ (2025 prices, 2026 TBC)",
+    "price_from": 2300000,
+    "price_text": "Rocka from IDR 2,300,000++; Watu jazz and champagne from IDR 4,600,000++ (2025 prices, 2026 TBC)",
     "time": "7:30pm – 10:30pm, then countdown",
     "includes": [
       "Rocka Final Feast: wood-fired roasts, Jimbaran lobster and Japanese stations",
@@ -609,8 +609,8 @@
       "family",
       "clifftop"
     ],
-    "price_from": 155,
-    "price_text": "Buffet IDR 1,950,000++ (kids 5–11 IDR 975,000++); Akasa set menu IDR 2,600,000++ (from about $155 AUD) (2025 prices, 2026 TBC)",
+    "price_from": 1950000,
+    "price_text": "Buffet IDR 1,950,000++ (kids 5–11 IDR 975,000++); Akasa set menu IDR 2,600,000++ (2025 prices, 2026 TBC)",
     "time": "From 5:30pm",
     "includes": [
       "Akasa set menu with sunset DJ, dance performance and live band",
@@ -636,8 +636,8 @@
       "beach-club",
       "family"
     ],
-    "price_from": 205,
-    "price_text": "IDR 2,550,000++ non-members (about $205 AUD); kids 9 and under IDR 820,000++ (2025 prices, 2026 TBC)",
+    "price_from": 2550000,
+    "price_text": "IDR 2,550,000++ non-members; kids 9 and under IDR 820,000++ (2025 prices, 2026 TBC)",
     "time": "From 7:00pm",
     "includes": [
       "International buffet on a private beach",
@@ -663,8 +663,8 @@
       "party",
       "clifftop"
     ],
-    "price_from": 190,
-    "price_text": "From about IDR 2,350,000++ (about $190 AUD) based on 2025; 2026 price TBC",
+    "price_from": 2350000,
+    "price_text": "From about IDR 2,350,000++ based on 2025; 2026 price TBC",
     "time": "Dinner 7:00pm – 11:00pm; party 11:00pm – late",
     "includes": [
       "Indonesian-inspired set-menu dinner with free-flow drinks",
@@ -689,8 +689,8 @@
       "rooftop",
       "clifftop"
     ],
-    "price_from": 125,
-    "price_text": "Botol Biru IDR 1,550,000++; 360 Rooftop IDR 2,150,000++ (from about $125 AUD); 25% off advance booking (2025 prices, 2026 TBC)",
+    "price_from": 1550000,
+    "price_text": "Botol Biru IDR 1,550,000++; 360 Rooftop IDR 2,150,000++; 25% off advance booking (2025 prices, 2026 TBC)",
     "time": "Dinner from 6:30pm; countdown 10:00pm – 1:00am",
     "includes": [
       "Four-course rooftop dinner or cliffside grill",
@@ -715,8 +715,8 @@
       "clifftop",
       "budget"
     ],
-    "price_from": 60,
-    "price_text": "GA IDR 750,000++ incl IDR 300,000 credit (about $60 AUD) (2025 price, 2026 TBC)",
+    "price_from": 750000,
+    "price_text": "GA IDR 750,000++ incl IDR 300,000 credit (2025 price, 2026 TBC)",
     "time": "Day to evening",
     "includes": [
       "Glass-bottomed cliff-edge pool 162 metres above the sea",
@@ -744,8 +744,8 @@
       "clifftop",
       "gala"
     ],
-    "price_from": 125,
-    "price_text": "Dinners from IDR 1,550,000++ (about $125 AUD); ballroom buffet IDR 2,500,000++ (kids 4–11 IDR 1,250,000++)",
+    "price_from": 1550000,
+    "price_text": "Dinners from IDR 1,550,000++; ballroom buffet IDR 2,500,000++ (kids 4–11 IDR 1,250,000++)",
     "time": "Dinners from 5:30pm; Rock Bar 4:00pm – 2:00am",
     "includes": [
       "Grand Countdown at AYANA Center Core with live music, DJs and major fireworks",
@@ -770,8 +770,8 @@
       "fine-dining",
       "dining"
     ],
-    "price_from": 520,
-    "price_text": "IDR 6,500,000++ non-residents (about $520 AUD) (2025 price, 2026 TBC)",
+    "price_from": 6500000,
+    "price_text": "IDR 6,500,000++ non-residents (2025 price, 2026 TBC)",
     "time": "From 6:30pm",
     "includes": [
       "Beachfront degustation with caviar, Boston lobster and foie gras",
@@ -796,8 +796,8 @@
       "party",
       "fine-dining"
     ],
-    "price_from": 360,
-    "price_text": "Early bird IDR 4,500,000++ if paid by 31 Oct (about $360 AUD); then IDR 5,000,000++; teens IDR 2,500,000++",
+    "price_from": 4500000,
+    "price_text": "Early bird IDR 4,500,000++ if paid by 31 Oct; then IDR 5,000,000++; teens IDR 2,500,000++",
     "time": "8:00pm – midnight, after-party until 2:00am",
     "includes": [
       "Five-course dinner with free-flow drinks",
@@ -824,8 +824,8 @@
       "family",
       "budget"
     ],
-    "price_from": 65,
-    "price_text": "Countdown only IDR 800,000++ (about $65 AUD); dinner & countdown IDR 1,750,000++; kids 6–11 IDR 460,000++, under 6 free",
+    "price_from": 800000,
+    "price_text": "Countdown only IDR 800,000++; dinner & countdown IDR 1,750,000++; kids 6–11 IDR 460,000++, under 6 free",
     "time": "Dinner & countdown 6:00pm – 1:00am",
     "includes": [
       "Free-flow canapés and alcoholic drinks",
@@ -851,8 +851,8 @@
       "family",
       "rooftop"
     ],
-    "price_from": 120,
-    "price_text": "Rooftop party IDR 1,500,000++ (about $120 AUD); gala IDR 4,888,000++ (kids 6–12 IDR 2,700,000++) (2025 prices, 2026 TBC)",
+    "price_from": 1500000,
+    "price_text": "Rooftop party IDR 1,500,000++; gala IDR 4,888,000++ (kids 6–12 IDR 2,700,000++) (2025 prices, 2026 TBC)",
     "time": "Gala from 7:30pm; rooftop from 9:00pm",
     "includes": [
       "Gala dinner in the open-air Pendopo with performances from across Indonesia",
@@ -878,8 +878,8 @@
       "dining",
       "family"
     ],
-    "price_from": 185,
-    "price_text": "IDR 2,300,000++ adults (about $185 AUD); kids IDR 1,150,000++ (2025 prices, 2026 TBC)",
+    "price_from": 2300000,
+    "price_text": "IDR 2,300,000++ adults; kids IDR 1,150,000++ (2025 prices, 2026 TBC)",
     "time": "Gala 7:30pm – 11:00pm; beachside bash 10:00pm – 2:00am",
     "includes": [
       "Gala dinner with lobster and seafood",
@@ -930,8 +930,8 @@
       "party",
       "family"
     ],
-    "price_from": 230,
-    "price_text": "IDR 2,900,000++ non-alcoholic (about $230 AUD); IDR 3,510,000++ with alcohol",
+    "price_from": 2900000,
+    "price_text": "IDR 2,900,000++ non-alcoholic; IDR 3,510,000++ with alcohol",
     "time": "From 7:00pm; countdown from 10:00pm",
     "includes": [
       "Access to four dining outlets in the village square",
@@ -954,8 +954,8 @@
       "dining",
       "family"
     ],
-    "price_from": 200,
-    "price_text": "IDR 2,500,000++ non-alcoholic (about $200 AUD); IDR 3,110,000++ with alcohol",
+    "price_from": 2500000,
+    "price_text": "IDR 2,500,000++ non-alcoholic; IDR 3,110,000++ with alcohol",
     "time": "From 7:00pm",
     "includes": [
       "Buffet dinner",
@@ -978,8 +978,8 @@
       "gala",
       "dining"
     ],
-    "price_from": 280,
-    "price_text": "IDR 3,500,000++ (about $280 AUD) (2025 price, 2026 TBC)",
+    "price_from": 3500000,
+    "price_text": "IDR 3,500,000++ (2025 price, 2026 TBC)",
     "time": "From 7:00pm",
     "includes": [
       "Grand buffet dinner",
@@ -1005,8 +1005,8 @@
       "budget",
       "family"
     ],
-    "price_from": 95,
-    "price_text": "Buffet IDR 1,200,000++ (about $95 AUD) (2025 price, 2026 TBC)",
+    "price_from": 1200000,
+    "price_text": "Buffet IDR 1,200,000++ (2025 price, 2026 TBC)",
     "time": "Dinner 6:00pm – 10:00pm; countdown 10:00pm – 1:00am",
     "includes": [
       "Masquerade-themed buffet with live music and saxophone",
@@ -1055,8 +1055,8 @@
       "dining",
       "budget"
     ],
-    "price_from": 75,
-    "price_text": "IDR 950,000++ vegetarian (about $75 AUD); IDR 1,550,000++ Land & Sea; wine pairing from IDR 1,500,000++",
+    "price_from": 950000,
+    "price_text": "IDR 950,000++ vegetarian; IDR 1,550,000++ Land & Sea; wine pairing from IDR 1,500,000++",
     "time": "Dinner 6:00pm – 11:00pm; live music 9:30pm – 12:30am",
     "includes": [
       "Five-course Mediterranean-inspired dinner",
@@ -1080,8 +1080,8 @@
       "dining",
       "family"
     ],
-    "price_from": 200,
-    "price_text": "About IDR 2,500,000 (about $200 AUD) (TBC)",
+    "price_from": 2500000,
+    "price_text": "About IDR 2,500,000 (TBC)",
     "time": "Evening (TBC)",
     "includes": [
       "Archipelago BBQ feast",
@@ -1131,8 +1131,8 @@
       "dining",
       "family"
     ],
-    "price_from": 120,
-    "price_text": "IDR 1,500,000++ adults (about $120 AUD); kids IDR 750,000++ (2025 prices, 2026 TBC)",
+    "price_from": 1500000,
+    "price_text": "IDR 1,500,000++ adults; kids IDR 750,000++ (2025 prices, 2026 TBC)",
     "time": "From 6:30pm",
     "includes": [
       "Traditional Balinese and Indonesian cuisine",
