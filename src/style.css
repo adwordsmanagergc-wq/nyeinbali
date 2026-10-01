@@ -132,8 +132,8 @@ td .pill{font-size:.75rem;padding:2px 9px;border-radius:999px;white-space:nowrap
 
 /* Pricing */
 .pricing{max-width:520px;margin:0 auto;text-align:center;background:linear-gradient(160deg,#241c5c,var(--card));border:1px solid rgba(255,201,77,.5);border-radius:26px;padding:40px 32px;box-shadow:0 30px 80px rgba(139,92,255,.25)}
-.pricing .amount{font-family:"Playfair Display",serif;font-size:4.2rem;font-weight:800;line-height:1}
-.pricing .amount sup{font-size:1.6rem;vertical-align:top}
+.pricing .amount{font-family:"Playfair Display",serif;font-size:clamp(2.4rem,10vw,3.6rem);font-weight:800;line-height:1}
+.pricing .amount sup{font-size:.4em;vertical-align:top;margin-right:.15em}
 .pricing .ticks{text-align:left;margin:24px 0}
 
 /* Form */

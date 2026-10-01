@@ -22,11 +22,11 @@ CONFIG = {
     "site_name": "NYE in Bali",
     "site_url": "https://nyeinbali.com",   # your live domain, no trailing slash
     "contact_email": "aj@metatapdigital.com",
-    "listing_price": 599,                              # AUD
+    "listing_price": 8000000,                          # IDR
     # Listing submissions are emailed to contact_email via FormSubmit (no account needed;
     # the first submission sends a one-time activation email to that inbox).
     "form_endpoint": "https://formsubmit.co/ajax/aj@metatapdigital.com",
-    # Stripe Payment Link (or similar) for the $599 listing fee. While it still contains
+    # Stripe Payment Link (or similar) for the IDR 8,000,000 listing fee (set the link to charge IDR). While it still contains
     # "YOUR_", submitters see a thank-you message and you email them an invoice instead.
     "payment_link": "https://buy.stripe.com/YOUR_PAYMENT_LINK",
     "year": 2026,
@@ -39,6 +39,7 @@ EVENTS = json.loads((ROOT / "data" / "events.json").read_text())
 TODAY = date.today().isoformat()
 Y, NY = CONFIG["year"], CONFIG["next_year"]
 URL = CONFIG["site_url"]
+FEE = f"IDR {CONFIG['listing_price']:,}"
 
 CATEGORY_LABELS = {
     "party": "Parties",
@@ -204,7 +205,7 @@ def layout(path, title, description, body, schema=None, og_type="website", activ
 <li><a href="/bali-fireworks-new-years-eve/">Where to watch fireworks</a></li><li><a href="/plan-your-night/">Plan your night</a></li>
 <li><a href="/plan-your-night/#transport">Traffic &amp; transport</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
 <div><h4>Venues</h4><ul>
-<li><a href="/list-your-event/">List your event: ${CONFIG['listing_price']} AUD</a></li>
+<li><a href="/list-your-event/">List your event: {FEE}</a></li>
 <li><a href="mailto:{CONFIG['contact_email']}">{CONFIG['contact_email']}</a></li></ul></div>
 </div>
 <p class="fine">NYE in Bali is an independent guide and is not affiliated with any venue, the Bali Provincial Government or the Indonesian tourism authorities. Prices are shown in IDR as published by venues, and "++" means tax and service (usually 21%) are added. Details can change, so always confirm with the venue before booking. Bali is a living Hindu culture: please dress and behave respectfully around temples and ceremonies. © {Y} {CONFIG['site_name']}.</p>
@@ -289,14 +290,14 @@ def season_section(p):
 <p class="muted" style="text-align:center;font-size:.8rem;margin:-6px 0 30px">Shows the typical seasonal pattern of search interest, not exact volumes.</p>
 <div class="grid">{cards}</div>
 <div class="band" style="margin-top:40px">
-<div><h2>One listing. The whole season.</h2><p>At typical Bali NYE prices of IDR 1.5–5 million a head, a handful of bookings covers your ${p} listing. Everything after that is profit, with zero commission.</p></div>
+<div><h2>One listing. The whole season.</h2><p>At typical Bali NYE prices of IDR 1.5–5 million a head, a handful of bookings covers your {FEE} listing. Everything after that is profit, with zero commission.</p></div>
 <a class="btn" href="#form">Claim your spot →</a></div>
 </div></section>"""
 
 
 def list_band():
     return f"""<section><div class="wrap"><div class="band">
-<div><h2>Selling NYE tickets in Bali?</h2><p>October to December is when travellers plan New Year's Eve in Bali. Get your party, dinner or beach club in front of them for ${CONFIG['listing_price']} AUD flat, with no commission.</p></div>
+<div><h2>Selling NYE tickets in Bali?</h2><p>October to December is when travellers plan New Year's Eve in Bali. Get your party, dinner or beach club in front of them for {FEE} flat, with no commission.</p></div>
 <a class="btn" href="/list-your-event/">List your event →</a></div></div></section>"""
 
 
@@ -350,7 +351,7 @@ FAQ = [
     ("Is NYE in Bali an official Bali Government website?",
      "No. NYE in Bali is an independent guide and event directory. We bring together published NYE events from beach clubs, resorts and restaurants so you can compare and plan the whole night in one place."),
     ("How do I list my New Year's Eve event on NYE in Bali?",
-     f"It's a one-off ${CONFIG['listing_price']} AUD fee with no commission. Your event gets its own optimised page, a place in our directory and category pages, and a direct link to your booking page. <a href=\"/list-your-event/\">List your event here</a>."),
+     f"It's a one-off {FEE} fee with no commission. Your event gets its own optimised page, a place in our directory and category pages, and a direct link to your booking page. <a href=\"/list-your-event/\">List your event here</a>."),
 ]
 
 
@@ -540,7 +541,7 @@ def page_category(c):
 <section style="padding-bottom:0"><div class="wrap two">
 <div class="panel"><h2 style="font-size:1.5rem">Booking tips</h2><ul class="ticks">{tips}</ul></div>
 <div><h2 style="font-size:1.5rem">{len(events)} options, compared</h2><p class="muted">Every listing shows the published IDR price, what's included and whether there are fireworks. Where 2026 pricing isn't out yet we show last year's price or TBA, so always confirm with the venue.</p>
-<a class="btn btn-primary" href="/list-your-event/">Add your venue: ${CONFIG['listing_price']} AUD</a></div>
+<a class="btn btn-primary" href="/list-your-event/">Add your venue: {FEE}</a></div>
 </div></section>
 {directory(events, c['h1'], 'Filter and sort to find your night.')}
 {list_band()}"""
@@ -704,14 +705,14 @@ def page_plan():
 def page_list():
     p = CONFIG["listing_price"]
     has_pay = "YOUR_" not in CONFIG["payment_link"]
-    form_sub = (f"Fill this in, then pay ${p} AUD securely. We'll publish your page and email you the link." if has_pay
-                else f"Fill this in and we'll email you a ${p} AUD invoice within one business day. Your page goes live once it's paid.")
-    submit_label = f"Continue to payment: ${p} →" if has_pay else "Send my listing request →"
+    form_sub = (f"Fill this in, then pay {FEE} securely. We'll publish your page and email you the link." if has_pay
+                else f"Fill this in and we'll email you an {FEE} invoice within one business day. Your page goes live once it's paid.")
+    submit_label = f"Continue to payment: {FEE} →" if has_pay else "Send my listing request →"
     cats = "".join(f'<option value="{k}">{v}</option>' for k, v in CATEGORY_LABELS.items() if k not in ("budget", "free"))
     faq = [
-        ("What do I get for $" + str(p) + " AUD?", "A dedicated event page built for search, with Google Event structured data. You also get a listing in our main directory and the matching category pages (parties, beach clubs, dinners, family), a direct link to your own booking page, and edits until 31 December."),
-        ("Why should I list now rather than in December?", "Search interest in New Year's Eve in Bali builds from October and peaks in the final weeks of December, as travellers book flights and then look for things to do. Listing early means your page is live and indexed by Google for the whole season, not just the last-minute rush. New pages can take days or weeks to rank, so the earlier you're in, the more of the season you capture. It's the same $" + str(p) + " whenever you list."),
-        ("Can I pay in rupiah?", f"The listing fee is ${p} AUD, paid by card through a secure payment link, so it works from an Indonesian or international card. Your event's own prices can be shown in IDR."),
+        (f"What do I get for {FEE}?", "A dedicated event page built for search, with Google Event structured data. You also get a listing in our main directory and the matching category pages (parties, beach clubs, dinners, family), a direct link to your own booking page, and edits until 31 December."),
+        ("Why should I list now rather than in December?", "Search interest in New Year's Eve in Bali builds from October and peaks in the final weeks of December, as travellers book flights and then look for things to do. Listing early means your page is live and indexed by Google for the whole season, not just the last-minute rush. New pages can take days or weeks to rank, so the earlier you're in, the more of the season you capture. It's the same " + FEE + " whenever you list."),
+        ("Can I pay in rupiah?", f"Yes. The listing fee is {FEE}, paid by card through a secure payment link, so it works from an Indonesian or international card."),
         ("Do you take commission on bookings?", "No. Guests book directly with you through your own link, and you keep 100% of every ticket."),
         ("How long does my listing stay live?", f"Your listing stays live until New Year's Day {NY}, then rolls into our archive. Previous listers get first right to renew for next year."),
         ("How fast will my listing go live?", "Usually within one business day of payment. We'll email you the link."),
@@ -724,7 +725,7 @@ def page_list():
 <p class="lead">October, November and December are when travellers plan New Year's Eve in Bali. Put your NYE {Y} event in front of people typing "New Year's Eve Bali", "Bali NYE parties", "NYE dinner Bali" and "Canggu New Year's Eve" while they're choosing where to spend the night.</p>
 {countdown(mini=True)}
 <p class="cd-note" style="margin-top:0">left to sell. The NYE search season is on now.</p>
-<div class="cta-row"><a class="btn btn-primary" href="#form">List my event: ${p}</a><a class="btn btn-ghost" href="#season">Why now?</a></div></div></section>
+<div class="cta-row"><a class="btn btn-primary" href="#form">List my event: {FEE}</a><a class="btn btn-ghost" href="#season">Why now?</a></div></div></section>
 {season_section(p)}
 <section><div class="wrap two" style="align-items:start">
 <div>
@@ -741,8 +742,8 @@ def page_list():
 </div>
 <div class="pricing">
 <span class="eyebrow">NYE {Y} listing</span>
-<div class="amount"><sup>$</sup>{p}</div>
-<p class="muted">AUD · one-off · no commission</p>
+<div class="amount"><sup>IDR</sup>{p:,}</div>
+<p class="muted">Rupiah · one-off · no commission</p>
 <ul class="ticks">
 <li>Dedicated event page + Google Event schema</li>
 <li>Directory &amp; category page placement</li>
@@ -770,7 +771,7 @@ def page_list():
 <div><label for="f-email">Email *</label><input id="f-email" name="email" type="email" required></div>
 <div><label for="f-phone">Phone / WhatsApp</label><input id="f-phone" name="phone" type="tel"></div>
 <div><label for="f-abn">Business name</label><input id="f-abn" name="business"></div>
-<input type="hidden" name="_subject" value="New NYE in Bali listing request (${p} AUD)">
+<input type="hidden" name="_subject" value="New NYE in Bali listing request ({FEE})">
 <input type="hidden" name="_template" value="table"><input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 <div class="full"><button class="btn btn-primary" type="submit">{submit_label}</button>
 <p class="form-status muted" aria-live="polite" style="margin:12px 0 0"></p></div>
@@ -781,12 +782,12 @@ def page_list():
         "@context": "https://schema.org", "@type": "Service", "name": f"NYE {Y} event listing",
         "provider": {"@type": "Organization", "name": CONFIG["site_name"], "url": URL + "/"},
         "areaServed": "Bali, Indonesia",
-        "offers": {"@type": "Offer", "price": p, "priceCurrency": "AUD", "url": URL + "/list-your-event/"},
+        "offers": {"@type": "Offer", "price": p, "priceCurrency": "IDR", "url": URL + "/list-your-event/"},
     }
     return layout(
         "/list-your-event/",
-        f"List Your New Year's Eve Event in Bali – ${p} | NYE in Bali",
-        f"Promote your Bali New Year's Eve {Y} party, beach club, gala or dinner. ${p} AUD flat fee, no commission: a dedicated SEO event page, directory placement and a direct booking link.",
+        f"List Your New Year's Eve Event in Bali – {FEE} | NYE in Bali",
+        f"Promote your Bali New Year's Eve {Y} party, beach club, gala or dinner. {FEE} flat fee, no commission: a dedicated SEO event page, directory placement and a direct booking link.",
         body, schema=[service, faq_schema(faq), breadcrumbs(("Home", "/"), ("List your event", "/list-your-event/"))],
     )
 
